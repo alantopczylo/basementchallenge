@@ -94,7 +94,7 @@ export const post = defineType({
       group: "main",
       title: "Intro (small text)",
       description:
-        "Marcas: {{texto|/ruta}} lo subraya y lo linkea, {{texto}} solo subraya, :saluting_face: inserta el emoji 🫡.",
+        "Marcas: {{texto|/ruta}} lo subraya y lo linkea, {{texto}} solo subraya. Cualquier emoji se escribe directo (Windows: Win + . | Mac: Ctrl + Cmd + Espacio); :saluting_face: dibuja el 🫡, que es nuevo y no se ve en todos los sistemas.",
       validation: (r) => r.required(),
     }),
     defineField({

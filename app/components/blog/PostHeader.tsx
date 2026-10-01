@@ -8,7 +8,7 @@ import Link from "next/link";
 export interface PostHeaderProps {
   title: string; // "\n" fuerza salto de línea
   summary: string;
-  /** Admite {{texto|/ruta}} (subrayado con link), {{texto}} (solo subrayado) y :saluting_face: (emoji 🫡 como imagen) */
+  /** Admite {{texto|/ruta}} (subrayado con link), {{texto}} (solo subrayado) y :saluting_face: (emoji 🫡 como imagen). Cualquier otro emoji se escribe directo en el texto y lo dibuja el sistema */
   intro: string;
   backHref?: string;
   backLabel?: string;
