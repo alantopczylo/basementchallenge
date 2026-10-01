@@ -11,8 +11,9 @@ export const client = hasSanity
       projectId,
       dataset,
       apiVersion: "2025-01-01",
-      // CDN para lecturas publicadas: rápido y barato; el contenido nuevo llega por revalidación (ver api/revalidate)
-      useCdn: true,
+      // Sin CDN de la API: cuando el webhook invalida la caché de Next, la lectura nueva trae el contenido recién publicado
+      // (el CDN de la API puede devolver la versión vieja unos segundos). No pesa: Next cachea el resultado y solo lee al revalidar.
+      useCdn: false,
       perspective: "published",
     })
   : null;
