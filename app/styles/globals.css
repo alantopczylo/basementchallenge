@@ -1,0 +1,709 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color Tokens */
+  --basement-white: #e6e6e6;
+  --basement-orange: #ff4d00;
+  --basement-black: #000000;
+  --basement-grey: #666666;
+  --basement-dark-grey: #2e2e2e;
+  --basement-light-grey: #c4c4c4;
+
+  /* Typography */
+  --font-geist:
+    var(--font-geist-loaded), "Geist", system-ui, -apple-system, sans-serif;
+  --font-geist-mono:
+    var(--font-geist-mono-loaded), "Geist Mono", "SF Mono", Monaco, monospace;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Scrollbar minimalista: fina, sin flechas, pista negra (la del fondo) y un pulgar gris que se aclara al apuntarlo.
+   Chrome / Safari / Edge usan ::-webkit-scrollbar (permite 6px); Firefox usa scrollbar-width / scrollbar-color. */
+html::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+html::-webkit-scrollbar-track {
+  background: var(--basement-black);
+}
+html::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 3px;
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--basement-grey);
+}
+@supports (-moz-appearance: none) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #3a3a3a var(--basement-black);
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth; /* Lenis lo desactiva (.lenis) cuando está activo */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-geist);
+  color: var(--basement-white);
+  background-color: var(--basement-black);
+  line-height: 1.6;
+}
+
+/* Typography Classes */
+
+/* H1 / Display */
+.h1,
+h1 {
+  font-family: var(--font-geist);
+  font-size: 76px;
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+/* H2 */
+.h2,
+h2 {
+  font-family: var(--font-geist);
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+/* H3 */
+.h3,
+h3 {
+  font-family: var(--font-geist);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* H3 Regular */
+.h3-regular {
+  font-family: var(--font-geist);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* Body Semibold */
+.body-semibold {
+  font-family: var(--font-geist);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* Body Medium */
+.body-medium {
+  font-family: var(--font-geist);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* Body Regular */
+.body-regular,
+p {
+  font-family: var(--font-geist);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* Mono Regular */
+.mono-regular {
+  font-family: var(--font-geist-mono);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* Mono Medium (filtros, botones) */
+.mono-medium {
+  font-family: var(--font-geist-mono);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* Meta (fechas, tags): Geist 600 13px, lh 100%, sin uppercase */
+.meta {
+  font-family: var(--font-geist);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+/* Body 14 (mobile typekit): Geist 600 / 400, lh 130%, ls 0 */
+.body-semibold-sm {
+  font-family: var(--font-geist);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.body-regular-sm {
+  font-family: var(--font-geist);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+/* Tablet (768-1023px): H1 56px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .h1,
+  h1 {
+    font-size: 56px;
+  }
+}
+
+/* Mobile typekit: solo cambian H1 (40px) y H3 Regular (20px); el resto de tamaños se mantiene */
+@media (max-width: 767px) {
+  .h1,
+  h1 {
+    font-size: 40px;
+  }
+
+  /* H2 mobile: Geist 600 24px, lh 110%, ls -3% */
+  .h2,
+  h2 {
+    font-size: 24px;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .h3-regular {
+    font-size: 20px;
+  }
+}
+
+/* Footer: títulos (Geist Mono 500 uppercase) y links (Geist 600). Mobile 12px, desktop 14px / 16px */
+.footer-title {
+  font-family: var(--font-geist-mono);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.footer-legal {
+  font-family: var(--font-geist-mono);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.footer-link {
+  font-family: var(--font-geist);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+@media (min-width: 768px) {
+  .footer-title {
+    font-size: 14px;
+  }
+
+  .footer-legal {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .footer-link {
+    font-size: 16px;
+  }
+}
+
+/* Caption / Label */
+.caption {
+  font-family: var(--font-geist);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+/* Utility Classes */
+
+.container {
+  /* Mismo ancho que la navbar: 1372px máx., sin margen lateral propio (mobile: 12px por lado, tablet/desktop: 32px) */
+  width: calc(100% - 24px);
+  max-width: 1372px;
+  margin: 0 auto;
+}
+
+/* Tablet y desktop: 32px de margen por lado (a 1440px+ manda el max-width de 1372px) */
+@media (min-width: 768px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Elipse del hero (ver HeroEllipse.tsx). Mobile: Figma 805.73 x 535.14, top 276, blur progressive 75 -> 20
+   (~ 0.6 x promedio, mismo criterio que desktop: 100 -> 50 = 45px) */
+.sun-move {
+  position: absolute;
+  top: 276px;
+  left: calc(50% - 402.87px);
+  width: 805.73px;
+  height: 535.14px;
+}
+.hero-ellipse {
+  position: absolute;
+  inset: 0;
+  filter: blur(28px);
+}
+
+/* Tablet: elipse intermedia entre mobile y desktop */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .sun-move {
+    top: 300px;
+    left: calc(50% - 750px);
+    width: 1500px;
+    height: 760px;
+  }
+  .hero-ellipse {
+    filter: blur(38px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sun-move {
+    top: 472px;
+    left: calc(50% - 1261.47px);
+    width: 2447.94px;
+    height: 1243.59px;
+  }
+  .hero-ellipse {
+    filter: blur(45px);
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Focus Visible for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--basement-orange);
+  outline-offset: 2px;
+}
+
+/* Smooth Transitions */
+button,
+a {
+  transition: all 0.3s ease;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Buttons (Figma: Property 1 = Dark | Light) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 8px 32px;
+  border-radius: 8px;
+  font-family: var(--font-geist-mono);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+}
+
+.btn-dark {
+  color: var(--basement-white);
+  background-color: #000000;
+  background-image: radial-gradient(
+    50% 100% at 50% 100%,
+    rgba(190, 190, 190, 0.3) 0%,
+    rgba(190, 190, 190, 0) 100%
+  );
+  box-shadow:
+    inset 0px 1px 2px 0px rgba(255, 255, 255, 0.1),
+    inset 0px -1px 2px 0px rgba(255, 255, 255, 0.1);
+}
+
+.btn-light {
+  color: var(--basement-black);
+  background-color: #f8f8f8;
+  background-image: radial-gradient(
+    50% 100% at 50% 100%,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  box-shadow:
+    inset 0px 1px 2px 0px rgba(255, 255, 255, 0.1),
+    inset 0px -1px 2px 0px rgba(255, 255, 255, 0.1);
+}
+
+/* Botón oscuro del navbar (desktop): el degradado inferior aparece con un fade al hacer hover.
+   En mobile/tablet (sin hover) el botón del menú usa .btn-dark tal cual, con el degradado siempre visible. */
+@media (min-width: 1024px) and (hover: hover) {
+  .btn-glow-hover {
+    position: relative;
+    isolation: isolate;
+    background-image: none;
+  }
+  .btn-glow-hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: radial-gradient(
+      50% 100% at 50% 100%,
+      rgba(190, 190, 190, 0.3) 0%,
+      rgba(190, 190, 190, 0) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .btn-glow-hover:hover::before,
+  .btn-glow-hover:focus-visible::before {
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) {
+  .btn:hover {
+    opacity: 0.9;
+  }
+}
+.btn:active {
+  opacity: 0.8;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Oculta la barra de scroll (filtros con scroll horizontal en mobile) */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Wordmark del footer: blur mobile 0.6x | tablet 0.8x | desktop 1x */
+.wordmark {
+  --wordmark-blur: 0.6;
+}
+
+@media (min-width: 768px) {
+  .wordmark {
+    --wordmark-blur: 0.8;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wordmark {
+    --wordmark-blur: 1;
+  }
+}
+
+/* Detalle del post en mobile: lead (600) y cuerpo (400) en 14px, lh 130%, ls 0 (Figma mobile) */
+@media (max-width: 767px) {
+  .post-body p,
+  .post-body li {
+    font-size: 14px;
+    line-height: 1.3;
+    letter-spacing: 0;
+  }
+}
+
+/* Autor de la cita en mobile: Geist 600 13px, lh 100% */
+@media (max-width: 767px) {
+  .post-body figcaption {
+    font-size: 13px;
+    line-height: 1;
+  }
+}
+
+/* Reveal del título del hero (ver HeroTitle): estado inicial, antes de que GSAP arranque.
+   Solo con movimiento normal; con movimiento reducido el título se ve directo. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-word {
+    transform: translate(0, 140%);
+  }
+}
+
+/* Entrada de la navbar (ver Navbar): estado inicial antes de que GSAP arranque. Solo con movimiento normal. */
+@media (prefers-reduced-motion: no-preference) {
+  /* El contenido y el vidrio arrancan invisibles y GSAP los enciende (solo opacity: sin filter ni transform sobre la barra) */
+  nav.nav-intro [data-nav-in],
+  nav.nav-intro [data-nav-glass],
+  nav.nav-intro [data-nav-ring] {
+    opacity: 0;
+  }
+}
+
+/* Entrada al scroll (ScrollReveal): estado inicial oculto; GSAP lo lleva a su lugar. Solo con movimiento normal. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    --ro: 0;
+    transform: translate(0, 40px);
+  }
+  [data-reveal="move"] {
+    opacity: 1;
+    transform: translate(0, 60px);
+  }
+  [data-reveal="wipe"] {
+    opacity: 1;
+    transform: none;
+    overflow: clip;
+  }
+  [data-reveal="wipe"] > * {
+    transform: translate(0, 100%);
+  }
+  [data-reveal="soft"] {
+    transform: translate(0, 20px);
+  }
+  /* Línea que se traza de izquierda a derecha */
+  [data-reveal="line"] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+  }
+  /* Card: la caja hace un fundido sin moverse y sus textos (.hero-word) suben en su máscara */
+  [data-reveal="card"] {
+    opacity: 0;
+    transform: none;
+  }
+  [data-reveal="fade"] {
+    transform: none;
+  }
+  /* Unit (cards de la lista): la card entera sube y aparece junta; sus textos no tienen entrada propia */
+  [data-reveal="unit"] {
+    transform: translate(0, 50px);
+  }
+  [data-unit] .hero-word {
+    transform: none;
+  }
+}
+
+/* Entrada del footer (FooterReveal): estado inicial oculto */
+@media (prefers-reduced-motion: no-preference) {
+  /* Los textos del footer (títulos, links y legales) arrancan en su máscara (.hero-word); solo el ícono hace fundido */
+  [data-f="icon"] {
+    opacity: 0;
+  }
+  [data-f="line"] {
+    transform: scaleX(0);
+  }
+  [data-f="wordmark"]:not([data-f-done]) > * {
+    opacity: 0;
+  }
+}
+
+/* Lenis: reglas base recomendadas */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Amanecer del hero (HeroEllipse): el sol arranca abajo y apagado; GSAP lo sube. Solo con movimiento normal. */
+@media (prefers-reduced-motion: no-preference) {
+  .sun-move {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+}
+
+/* Haz de luz del hero (HeroEllipse): cono muy tenue desde arriba hasta el charco de luz. Detrás del contenido. */
+.hero-beam {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(170vw, 2200px);
+  height: 62vh;
+  margin-left: calc(min(170vw, 2200px) / -2);
+  pointer-events: none;
+  background: conic-gradient(
+    from 146deg at 50% 0,
+    transparent 0deg,
+    rgba(255, 168, 96, 0.03) 14deg,
+    rgba(255, 168, 96, 0.08) 26deg,
+    rgba(255, 168, 96, 0.1) 34deg,
+    rgba(255, 168, 96, 0.08) 42deg,
+    rgba(255, 168, 96, 0.03) 54deg,
+    transparent 68deg,
+    transparent 360deg
+  );
+  /* Se desvanece arriba y abajo: sin borde duro (antes cortaba seco a los 62vh y se veía como un recuadro) */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 30%,
+    #000 55%,
+    transparent 100%
+  );
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-beam {
+    opacity: 0;
+  }
+}
+
+/* ---------- Entrada (IntroLoader): pantalla en negro, se enciende el sol y el hero enfoca ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Hasta que arranca la entrada la página está oculta (el fondo negro es el de la raíz). Sin JS no hay quien la
+     prenda: a los 10s se muestra igual */
+  html:not([data-lit]) .page-world {
+    opacity: 0;
+    animation: page-show 0s linear 10s forwards;
+  }
+  /* Solo el hero (la primera sección): la sección blanca de abajo no se anima con la entrada, si no se ve entrando desde arriba y pisando al hero */
+  /* El hero "enfoca" como un ojo que se acostumbra a la luz: borroso y algo grande > nítido. Sin fill-mode final
+     (un filter permanente en un ancestro anularía el backdrop-filter de navbar y card) */
+  html.focus-in .page-world main > section:first-of-type {
+    animation: focus-in 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.45s backwards;
+  }
+}
+@keyframes focus-in {
+  from {
+    opacity: 0;
+    filter: blur(24px);
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+@keyframes page-show {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Cursor propio (components/common/Cursor): solo con mouse; el punto naranja reemplaza a la flecha */
+@media (hover: hover) and (pointer: fine) {
+  html.has-cursor,
+  html.has-cursor * {
+    cursor: none !important;
+  }
+  html.has-cursor :is(input, textarea, [contenteditable="true"]) {
+    cursor: text !important;
+  }
+}
+
+/* Portadas de las cards (CardFluid): en gris hasta que el cursor las pinta. Solo si el WebGL arrancó (`fluid-on`) */
+html.fluid-on .fluid-cover img {
+  filter: grayscale(1) contrast(1.15);
+}
+html.fluid-on .fluid-cover[data-fluid-done] img {
+  filter: none;
+}
+
+/* Página de un post (components/blog/PostStory): lo que cuenta la línea de tiempo arranca oculto */
+@media (prefers-reduced-motion: no-preference) {
+  [data-story="back"],
+  [data-story="meta"],
+  [data-story="frame"] {
+    opacity: 0;
+  }
+  [data-story="line"] {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+}
+
+/* Imagen del post (FluidImage): oculta hasta que la tinta la descubre (WebGL); sin movimiento reducido se ve directa */
+@media (prefers-reduced-motion: no-preference) {
+  [data-fluid-img]:not([data-on]) img {
+    opacity: 0;
+  }
+}
