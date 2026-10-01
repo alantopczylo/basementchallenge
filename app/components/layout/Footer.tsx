@@ -194,6 +194,7 @@ export const Footer: React.FC<FooterProps> = ({
           ))}
         </nav>
 
+        {/* En mobile el wordmark es un poco más ancho que la pantalla (la "t" entra justa; se mide contra el ancho del footer, no de la ventana) y el punto final queda recortado por el overflow del footer */}
         {/* Wordmark: PNG del logo como máscara + gradiente 180deg #000 -2.95% → #434343 129.42%
             Progressive blur (0 en 22.93% → 10px en 115.96%): capas apiladas con blur creciente,
             cada una aparece con una rampa vertical y queda encima de la anterior */}
@@ -201,7 +202,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div
             aria-hidden
             data-f="wordmark"
-            className="wordmark pointer-events-none relative -mx-4 mt-[66px] aspect-[3653/512] select-none md:mx-0 md:mt-[63px] md:w-full"
+            className="wordmark pointer-events-none relative -ml-4 mt-[66px] aspect-[3653/512] w-[calc(104.3%+32px)] max-w-none select-none md:ml-0 md:mt-[63px] md:w-full"
           >
             {/* Una sola capa de GPU para todo el wordmark: se pinta una vez (blur + ruido son caros) y al scrollear solo se compone */}
             <div className="absolute inset-0 will-change-transform">
